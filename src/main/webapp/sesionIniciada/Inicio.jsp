@@ -110,19 +110,8 @@
                 </div>   
 
             </div>
-
             <br>
-
-
-
-
-
-
-
         </div>
-        <!--INICIO DEL SEGUNDO BLOQUE-->
-
-
     </div>
     <%@include file="proyectoSedesol/../componentes/Footer.jsp" %>  
 </body>
