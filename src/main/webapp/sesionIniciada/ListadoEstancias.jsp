@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true"%>
 <!DOCTYPE html>
@@ -103,7 +104,7 @@
                                         <td>${listadoTemp.listaDireccion}</td>
                                         <td>${listadoTemp.listaEstado}</td>
                                         <td>${listadoTemp.listaFechaInicio}</td>
-                                        <td>${listadoTemp.listaFechaFin}</td>
+                                        <td><fmt:formatDate value="${listadoTemp.listaFechaFin}" pattern="dd/MM/yyyy"/></td>
                                         <td>${listadoTemp.idRevision}</td>
                                         <td>${listadoTemp.listaRNombreEstancia}</td>
                                         <td>${listadoTemp.listaRDireccion}</td>
@@ -133,17 +134,17 @@
                                     <td>${listadoDatos.direccion}</td>
                                     <td>${listadoDatos.estado}</td>
                                     <td>${listadoDatos.fecha_inicio}</td>
-                                    <td>${listadoDatos.fehca_fin}</td>
+                                    <td><fmt:formatDate value="${listadoDatos.fehca_fin}" pattern="dd/MM/yyyy"/></td>
                                     <td>${listadoRev.id_revision}</td>
                                     <td>${listadoRev.r_nombre_estancia}</td>
                                     <td>${listadoRev.r_nombre_responsable}</td>
                                     <td>${listadoRev.r_direccion}</td>
                                     <td>${listadoRev.r_estado}</td>
                                     <td>${listadoRev.r_fecha_inicio}</td>
-                                    <td>${listadoRev.r_fecha_fin}</td>
-                                    <td>${listadoRev.usuario_rev}</td>
+                                    <td>${listadoRev.r_fecha_fin}</td>           
                                     <td>${listadoRev.comentarios}</td>
                                     <td>${listadoRev.estatus}</td>
+                                    <td>${listadoRev.usuario_rev}</td>
                                     <c:if test="${privilegio=='Administrador'}">
                                         <td><a href="?proceso=eliminar&id=${listadoDatos.id_estancia}&ruta=${listadoDatos.ruta_doc}">Eliminar</a></td>                                
                                     </c:if>
