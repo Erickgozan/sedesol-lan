@@ -100,6 +100,7 @@ public class ControladorAM extends HttpServlet {
             } else {
 
                 request.setAttribute("DatosDoc", datos);
+                 request.setAttribute("fechaFin", datos.getFehca_fin());
 
                 switch (buscar) {
                     case "idRevisar": {
@@ -157,7 +158,7 @@ public class ControladorAM extends HttpServlet {
 
         ArrayList<String> campos = new ArrayList<>();
         //ServletContext context = request.getServletContext();
-        String path = "C:/Users/erick/OneDrive/Documents/documentos/AM/" + idEstancia;
+        String path = "C:\\Users\\erick\\OneDrive\\Documents\\documentos-sedesol\\AM\\" + idEstancia;
         //String path = context.getRealPath("documentos/AM/" + idEstancia);
         String ruta = null;
 
