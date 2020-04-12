@@ -1,6 +1,11 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true"%>
+<fmt:setLocale value="MX_es"/>
 <!DOCTYPE html>
 <html>
     <head>
@@ -54,7 +59,7 @@
                                     <td>${DatosDoc.direccion}</td>
                                     <td>${DatosDoc.estado}</td>
                                     <td>${DatosDoc.fecha_inicio}</td>
-                                    <td>${DatosDoc.fehca_fin}</td>
+                                    <td><%=new SimpleDateFormat("dd/MM/yyyy").format(request.getAttribute("fechaFin"))%></td>               
                                 </tr>
 
                             </tbody>
