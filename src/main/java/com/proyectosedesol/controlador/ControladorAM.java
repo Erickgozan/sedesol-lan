@@ -100,7 +100,6 @@ public class ControladorAM extends HttpServlet {
             } else {
 
                 request.setAttribute("DatosDoc", datos);
-                 request.setAttribute("fechaFin", datos.getFehca_fin());
 
                 switch (buscar) {
                     case "idRevisar": {

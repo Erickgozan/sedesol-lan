@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true"%>
@@ -54,7 +55,7 @@
                                     <td>${DatosDoc.direccion}</td>
                                     <td>${DatosDoc.estado}</td>
                                     <td>${DatosDoc.fecha_inicio}</td>
-                                    <td>${DatosDoc.fehca_fin}</td>
+                                     <td><fmt:formatDate value="${DatosDoc.fehca_fin}" pattern="dd/MM/yyyy"/></td>               
                                 </tr>
 
                             </tbody>

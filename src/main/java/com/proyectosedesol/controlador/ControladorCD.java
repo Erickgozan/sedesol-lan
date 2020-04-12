@@ -115,7 +115,7 @@ public class ControladorCD extends HttpServlet {
         ServletFileUpload componentesForm = new ServletFileUpload(file);
         //Array que guarda los componentes que no sean de tipo File
         ArrayList<String> inputsText = new ArrayList<>();
-        String rutaCarpta = "C:/Users/erick/OneDrive/Documents/documentos/CD/" + idEstancia;
+        String rutaCarpta = "C:\\Users\\erick\\OneDrive\\Documents\\documentos-sedesol\\CD\\" + idEstancia;
         String rutaCompleta;
         //Array que guarda las rutas de las carpetas
         ArrayList<String> rutaArchivos = new ArrayList<>();

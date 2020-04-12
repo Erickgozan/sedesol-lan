@@ -43,7 +43,7 @@ public class ControladorCR extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         String proceso = request.getParameter("proceso");
+        String proceso = request.getParameter("proceso");
 
         if (proceso == null) {
             proceso = "SubirDatosCR";
@@ -74,9 +74,9 @@ public class ControladorCR extends HttpServlet {
 
         }
     }
-    
+
     private void getDatosEstancia(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
+
         idEstancia = Integer.parseInt(request.getParameter("txtIdEstancia"));
         String buscar = request.getParameter("buscar");
         RequestDispatcher rd;
@@ -100,18 +100,18 @@ public class ControladorCR extends HttpServlet {
             response.getWriter().print("Error en el metodo getDatosEstancia: " + e.getLocalizedMessage());
 
         }
-        
+
     }
 
     private void insertarDatosEstancia(HttpServletRequest request, HttpServletResponse response) throws IOException {
-         PrintWriter out = response.getWriter();
+        PrintWriter out = response.getWriter();
         /*FileItemFactory es una interfaz para crear FileItem*/
         FileItemFactory file = new DiskFileItemFactory();
         /*ServletFileUpload esta clase convierte los input file a FileItem*/
         ServletFileUpload componentesForm = new ServletFileUpload(file);
         //Array que guarda los componentes que no sean de tipo File
         ArrayList<String> inputsText = new ArrayList<>();
-        String rutaCarpta = "C:/Users/erick/OneDrive/Documents/documentos/CR/" + idEstancia;
+        String rutaCarpta = "C:\\Users\\erick\\OneDrive\\Documents\\documentos-sedesol\\CR\\" + idEstancia;
         String rutaCompleta;
         //Array que guarda las rutas de las carpetas
         ArrayList<String> rutaArchivos = new ArrayList<>();
@@ -136,13 +136,13 @@ public class ControladorCR extends HttpServlet {
                     ficheros = carpeta.listFiles();
                     for (int i = 0; i < ficheros.length; i++) {
                         rutaArchivos.add(rutaCarpta + "/" + ficheros[i].getName());
-                        if (i == 0){
+                        if (i == 0) {
                             estancia.setRuta_docR1(rutaArchivos.get(0));
-                        }else if (i == 1){
+                        } else if (i == 1) {
                             estancia.setRuta_docR2(rutaArchivos.get(1));
-                        }else if (i == 2){
+                        } else if (i == 2) {
                             estancia.setRuta_docR3(rutaArchivos.get(2));
-                        }else if (i > 2){
+                        } else if (i > 2) {
                             out.println("Se supero el limite de archivos");
                         }
                     }
@@ -155,10 +155,9 @@ public class ControladorCR extends HttpServlet {
             estancia.setId_estancia(idEstancia);
             estancia.setEstatus_responsable(inputsText.get(0));
             estancia.setNombre_responsable(inputsText.get(1));
-            
+
             procesos.insertarDatosCR(estancia);
 
-            
             out.println("<br>La informacion se actualizo correctamente");
         } catch (FileUploadException e) {
             response.getWriter().print("Error al subir el archivo " + e.getLocalizedMessage());
@@ -168,7 +167,7 @@ public class ControladorCR extends HttpServlet {
     }
 
     private void insertarDatosRevisar_cr(HttpServletRequest request, HttpServletResponse response) {
-       PrintWriter out = null;
+        PrintWriter out = null;
         String selectDoc1 = request.getParameter("selectDoc1");
         String selectDoc2 = request.getParameter("selectDoc2");
         String selectDoc3 = request.getParameter("selectDoc3");
@@ -180,7 +179,7 @@ public class ControladorCR extends HttpServlet {
         try {
             out = response.getWriter();
 
-            RevisarCr revisar = new RevisarCr(idEstancia, selectDoc1, selectDoc2, selectDoc3,txtAreacomentarios, estatus,txtUsuarioRev);
+            RevisarCr revisar = new RevisarCr(idEstancia, selectDoc1, selectDoc2, selectDoc3, txtAreacomentarios, estatus, txtUsuarioRev);
             procesos.insertarDatosRevisar_cr(revisar);
 
             out.print("LA REVICIÓN SE REALIZÓ CORRECTAMENTE");
@@ -194,7 +193,7 @@ public class ControladorCR extends HttpServlet {
         String selectDoc1 = request.getParameter("selectDoc1");
         String selectDoc2 = request.getParameter("selectDoc2");
         String selectDoc3 = request.getParameter("selectDoc3");
-      
+
         String estatus = request.getParameter("estatus");
         String txtAreacomentarios = request.getParameter("txtAreacomentarios");
         String txtUsuarioRev = request.getParameter("txtUsuarioRev");
@@ -202,7 +201,7 @@ public class ControladorCR extends HttpServlet {
         try {
             out = response.getWriter();
 
-            RevisarCr revisar = new RevisarCr(idEstancia, selectDoc1, selectDoc2, selectDoc3, txtAreacomentarios, estatus,txtUsuarioRev);
+            RevisarCr revisar = new RevisarCr(idEstancia, selectDoc1, selectDoc2, selectDoc3, txtAreacomentarios, estatus, txtUsuarioRev);
             procesos.actualizarDatosRevisar_cr(revisar);
 
             out.print("LA REVICIÓN SE ACTUALIZÓ CORRECTAMENTE");
@@ -212,13 +211,13 @@ public class ControladorCR extends HttpServlet {
     }
 
     private void listarCR(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-     
-       PrintWriter out = null;
+
+        PrintWriter out = null;
         List<EstanciaCr> listaCr;
         RequestDispatcher dispatcher;
         String parametro = request.getParameter("BuscarEstanciaCr");
         String estado = request.getParameter("estado");
-        
+
         try {
             out = response.getWriter();
 
@@ -244,8 +243,8 @@ public class ControladorCR extends HttpServlet {
     }
 
     private void eliminarCR(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
-         PrintWriter out = null;
+
+        PrintWriter out = null;
         try {
             out = response.getWriter();
             int id_estancia = Integer.parseInt(request.getParameter("id"));
@@ -256,20 +255,18 @@ public class ControladorCR extends HttpServlet {
             File docCr = new File(rutaDocCr);
 
             if (docCr.delete()) {
-                procesos.eliminarCR(id_estancia,numDocumento);
+                procesos.eliminarCR(id_estancia, numDocumento);
                 request.setAttribute("eliminarCr", "EL DOCUMENTO SE ELIMINO CORRECTAMENTE");
                 rd = request.getRequestDispatcher("sesionIniciada/ListadoCR.jsp");
                 rd.forward(request, response);
             } else {
-                out.println("El documento no se pudo eliminar");
+                out.println("EL DOCUMENTO NO SE PUDO ELIMINAR");
             }
 
         } catch (IOException | SQLException | ServletException ex) {
-             out.println("Error " + ex.getLocalizedMessage());
+            out.println("Error " + ex.getLocalizedMessage());
         }
     }
-    
-    
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -282,7 +279,5 @@ public class ControladorCR extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    
 
 }
