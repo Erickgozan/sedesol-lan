@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import com.proyectosedesol.entidades.Usuarios;
+import javax.servlet.http.HttpSession;
 
 public class ControladorSesion extends HttpServlet {
 
@@ -32,28 +33,40 @@ public class ControladorSesion extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-       //PrintWriter out = response.getWriter();
-        Usuarios usuariosDb;
+        HttpSession sesion = request.getSession();
+
+        //PrintWriter out = response.getWriter();
         RequestDispatcher dispatcher;
 
         String usuario = request.getParameter("txtUsuario");
         String contrasenia = request.getParameter("txtContrasenia");
+
         try {
 
-            usuariosDb = modelo.getLogUsuario(usuario, contrasenia);
+            Usuarios usuariosDb = modelo.getLogUsuario(usuario, contrasenia);
 
-            request.setAttribute("usuario", usuario);
-            request.setAttribute("privilegio", usuariosDb.getPrivilegio());
-            request.setAttribute("estado", usuariosDb.getEstado());
-            dispatcher = request.getRequestDispatcher("/index.jsp");
-            dispatcher.forward(request, response);
-            
+            if (usuariosDb.getUsuario() != null) {
+                sesion.setAttribute("usuario", usuario);
+                sesion.setAttribute("privilegio", usuariosDb.getPrivilegio());
+                sesion.setAttribute("estado", usuariosDb.getEstado());
+                dispatcher = request.getRequestDispatcher("/sesionIniciada/Inicio.jsp");
+                dispatcher.forward(request, response);
+            }
+
         } catch (NullPointerException | SQLException e) {
-                      
-            request.setAttribute("error", "El USUARIO O CONTRASEÑA SON INCORRECTOS");
-           
-            dispatcher = request.getRequestDispatcher("/index.jsp");
-            dispatcher.forward(request, response);
+
+            if (request.getParameter("instruccion") != null) {
+                dispatcher = request.getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
+                sesion.invalidate();
+
+            } else {
+                request.setAttribute("error", "El USUARIO O CONTRASEÑA SON INCORRECTOS");
+
+                dispatcher = request.getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
+
+            }
         }
 
     }

@@ -9,7 +9,7 @@
               url="jdbc:mysql://localhost:3306/proyectosedesol?serverTimezone=UTC"
               driverClassName="com.mysql.jdbc.Driver" 
               username="root" 
-              password="" />
+              password="EA_gf_2404" />
   
     
 </Context>

@@ -17,3 +17,4 @@ com\proyectosedesol\controlador\ControladorSesion.class
 com\proyectosedesol\entidades\RevisarCr.class
 com\proyectosedesol\excel\CrearExcelAm.class
 com\proyectosedesol\excel\CrearExcelCr.class
+com\proyectosedesol\controlador\ControladorUsuario.class

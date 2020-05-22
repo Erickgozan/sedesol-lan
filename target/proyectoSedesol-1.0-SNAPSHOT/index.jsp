@@ -44,22 +44,3 @@
        
     </body>
 </html>
-<%
-    HttpSession sesion = request.getSession();
-    String privilegio = "";
-    String usuario = "";
-    String estado = "";
-    if (request.getAttribute("privilegio") != null) {
-        privilegio = request.getAttribute("privilegio").toString();
-        usuario = request.getAttribute("usuario").toString();
-        estado = request.getAttribute("estado").toString();
-        sesion.setAttribute("usuario", usuario);
-        sesion.setAttribute("privilegio", privilegio);
-        sesion.setAttribute("estado", estado);
-        response.sendRedirect("sesionIniciada/Inicio.jsp");
-    }
-    if (request.getParameter("instruccion") != null) {
-        session.invalidate();
-    }
-
-%>
